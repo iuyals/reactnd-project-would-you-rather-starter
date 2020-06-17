@@ -7,26 +7,28 @@ class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            showAnswered: true,
+            showAnswered: false,
         }
     }
     render() {
         let { questions, users } = this.props.state;
         if (users['authedUserID']) {
-            let questionList = Object.values(questions);
+            let questionList = Object.values(questions).reverse(); //use reverse to make new poll display first
             let authedUser = users[users['authedUserID']];
             let answeredQuestions = questionList.filter(q => Object.keys(authedUser.answers).includes(q.id));
             let unansweredQuestions = questionList.filter(q => !(Object.keys(authedUser.answers).includes(q.id)));
             return (
                 <div id='homediv'>
-                    <button onClick={() => this.setState({ showAnswered: true })}>
+                    <button onClick={() => this.setState({ showAnswered: true })}
+                            style={{backgroundColor:this.state.showAnswered===true?"lightgrey":"white"}}>
                         Answered
                     </button>
-                    <button onClick={() => this.setState({ showAnswered: false })}>
+                    <button onClick={() => this.setState({ showAnswered: false })}
+                            style={{backgroundColor:this.state.showAnswered===false?"lightgrey":"white"}}>
                         Unanswered
                     </button>
-                    <Questions questions={answeredQuestions} style={{ display: this.state.showAnswered ? 'inherit' : 'none' }} />
                     <Questions questions={unansweredQuestions} style={{ display: this.state.showAnswered ? 'none' : 'inherit' }} />
+                    <Questions questions={answeredQuestions} style={{ display: this.state.showAnswered ? 'inherit' : 'none' }} />
                 </div>
             )
         }

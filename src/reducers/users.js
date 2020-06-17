@@ -1,5 +1,5 @@
 import {CHANGE_AUTHORED_USER} from '../actions/users';
-import {RECEIVE_DATA} from '../actions/shared';
+import {RECEIVE_DATA,ADD_NEW_QUESTION} from '../actions/shared';
 import { ADD_ANSWERED_QUESTION } from '../actions/shared'
 
 export default function usersReducer(state={},action){
@@ -22,6 +22,20 @@ export default function usersReducer(state={},action){
                 },
                 
             }
+        case ADD_NEW_QUESTION:{
+            let authedUserID=action.question.author;
+            console.log(authedUserID,action.question)
+            return{
+                ...state,
+                [authedUserID]:{
+                    ...(state[authedUserID]),
+                    questions:[
+                        ...(state[authedUserID].questions),
+                        action.question.id,
+                    ]
+                }
+            }
+        }
         case RECEIVE_DATA:
             return action.users;
         default:

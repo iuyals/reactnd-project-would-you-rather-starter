@@ -1,33 +1,44 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
-import { handleInitialData } from '../actions/shared'
-import { changeAuthedUser, handleAddAnswerQuestion } from '../actions/users'
-import { handdleAddNewQuestion } from '../actions/questions'
+import { useHistory } from "react-router-dom";
 
 
-export default class NavBar extends React.Component{
-//props needed: user a user obj for render user status
-    render(){
-        return (
-            <div id='navbar'>
-                <button>Home</button>
-                <button>New question</button>
-                <button>Leader Board</button>
-                <StatusBar user={this.props.user} />
-                <button>logout</button>
-            </div>
-        )
+// import { handleInitialData } from '../actions/shared'
+// import { changeAuthedUser, handleAddAnswerQuestion } from '../actions/users'
+// import { handleAddNewQuestion } from '../actions/questions'
+import { changeAuthedUser } from '../actions/users'
+
+
+function NavBar(props) {
+    //props needed: user a user obj for render user status
+    let his = useHistory();
+    function goto(path) {
+        console.log('goto', path)
+        his.push(path);
     }
+    function logout() {
+        props.dispatch(changeAuthedUser(undefined));
+    }
+    let { user } = props;
+    return (
+        <div id='navbar'>
+            <button onClick={() => goto("/")}>Home</button>
+            <button onClick={() => goto("/add")} > New question</button>
+            <button onClick={() => goto("/leaderboard")} > Leader Board</button>
+            <StatusBar user={user} />
+            <button onClick={() => logout()}>logout</button>
+        </div>
+    )
+
 }
 
-class StatusBar extends React.Component{
+class StatusBar extends React.Component {
 
-    render(){
-        if(!this.props.user){
+    render() {
+        if (!this.props.user) {
             return <span></span>
         }
-        return(
+        return (
             <span>
                 hi {this.props.user.name}
                 <image src={this.props.user.avatarUrl} />
@@ -35,3 +46,5 @@ class StatusBar extends React.Component{
         )
     }
 }
+
+export default connect(state => ({ state: state }))(NavBar);

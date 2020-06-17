@@ -1,5 +1,4 @@
-import {ADD_NEW_QUESTION} from '../actions/questions';
-import {RECEIVE_DATA} from '../actions/shared';
+import {RECEIVE_DATA,ADD_NEW_QUESTION} from '../actions/shared';
 import { ADD_ANSWERED_QUESTION } from '../actions/shared';
 
 export default function questionsRducer(state={},action){

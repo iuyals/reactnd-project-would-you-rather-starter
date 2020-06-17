@@ -1,34 +1,39 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { useHistory } from "react-router-dom";
 import { ifUserAnswered, getUserOption } from '../utils/helper';
 import { handleAddAnswerToQuestion } from '../actions/shared'
-import { handdleAddNewQuestion } from '../actions/questions';
 
 
 function Poll(props) {
     const { dispatch, match: { params: { pollID } }, state: { questions, users } } = props;
-    function handleSubmit(event){
+    function handleSubmit(event) {
         event.preventDefault();
-        console.log('***submited',event.target.option.value)
-        let answer=event.target.option.value;
-        dispatch(handleAddAnswerToQuestion(users['authedUserID'],pollID,answer) );
+        let answer = event.target.option.value;
+        dispatch(handleAddAnswerToQuestion(users['authedUserID'], pollID, answer));
     }
 
     let authedUser = users[users['authedUserID']];
     let question = questions[pollID]
+    if(!question){
+        return (
+            <div>
+                <h1>404 not found</h1>
+            </div>
+        )
+    }
     if (authedUser === undefined) {
         return (<div>log in first</div>)
     }
     if (ifUserAnswered(authedUser, pollID)) {
-        let precetageOfOptionOne=100 * question.optionOne.votes.length /
-        (question.optionOne.votes.length + question.optionTwo.votes.length);
-        let precetageOfOptionTwo=100-precetageOfOptionOne;
+        let precetageOfOptionOne = 100 * question.optionOne.votes.length /
+            (question.optionOne.votes.length + question.optionTwo.votes.length);
+        let precetageOfOptionTwo = 100 - precetageOfOptionOne;
         return (
             <div class='answeredPoll'>
-                <p className='small-font'>
+                <img src={users[question.author].avatarURL} width="60 px" alt="avatar" />
+                <span className='small-font'>
                     asked by {question.author}
-                </p>
+                </span>
                 <h2>Result:</h2>
                 <div>
                     would u rather:
@@ -43,7 +48,7 @@ function Poll(props) {
                         </li>
 
                     </ol>
-                        you select: {getUserOption(authedUser, pollID)}
+                        you select: {getUserOption(authedUser, pollID) === 'optionOne' ? '1' : '2'}
                 </div>
             </div>
         )
@@ -51,10 +56,10 @@ function Poll(props) {
     else {
         return (
             <div class='unanswedPoll'>
-                <p className='small-font'>
-                    {question.author} asks:
-
-                    </p>
+                <img src={users[question.author].avatarURL} width="60 px" alt="avatar" />
+                <span className='small-font'>
+                    {question.author} asks
+                </span>
                 <div>
                     would u rather:
                     <form onSubmit={handleSubmit}>
@@ -66,7 +71,7 @@ function Poll(props) {
                         <label for='optionOne'>
                             {question.optionOne.text}
                         </label>
-                        <br/>
+                        <br />
                         <input type='radio'
                             id='optionTwo'
                             value="optionTwo"
@@ -75,7 +80,7 @@ function Poll(props) {
                         <label for='optionTwo'>
                             {question.optionTwo.text}
                         </label>
-                        <br/>
+                        <br />
                         <button type='submit'>submit</button>
                     </form>
                 </div>

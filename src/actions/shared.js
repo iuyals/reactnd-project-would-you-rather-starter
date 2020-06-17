@@ -2,6 +2,8 @@ import API from '../_DATA';
 
 export const RECEIVE_DATA='RECEIVE_DATA';
 export const ADD_ANSWERED_QUESTION = 'ADD_ANSWERED_QUESTION';
+export const ADD_NEW_QUESTION='ADD_NEW_QUESTION';
+
 
 
 function receiveData(users,questions){

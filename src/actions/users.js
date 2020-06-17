@@ -1,4 +1,4 @@
-import API from '../_DATA'
+
 
 export const CHANGE_AUTHORED_USER = 'CHANGE_AUTHORED_USER';
 
