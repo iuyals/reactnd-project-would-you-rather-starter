@@ -1,3 +1,27 @@
+# A project  for udacity react course
+
+# Run this project 
+
+Clone or download the project
+
+git clone https://github.com/iuyals/reactnd-project-would-you-rather-starter.git
+
+Run npm install in the project root directory to install dependencies
+
+***npm install*** 
+
+Run npm start to launch the project
+
+***npm start***
+
+then open the url:
+
+http://localhost:3000
+
+
+# below are Udacity's instruction
+
+
 # Would You Rather Project
 
 This is the starter code for the final assessment project for Udacity's React & Redux course.
