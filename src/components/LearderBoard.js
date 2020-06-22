@@ -37,7 +37,7 @@ class LeaderBoard extends React.Component{
                             return '';
                         }
                         return (
-                        <li>
+                        <li key={item.id}>
                             <img src={item.avatarURL} alt="avatar" width="60px"/>
                             <i style={{color:'green'}}>{item.name} </i><br></br>
                             total:{item.total},<br></br>

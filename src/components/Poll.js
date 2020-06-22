@@ -29,7 +29,7 @@ function Poll(props) {
             (question.optionOne.votes.length + question.optionTwo.votes.length);
         let precetageOfOptionTwo = 100 - precetageOfOptionOne;
         return (
-            <div class='answeredPoll'>
+            <div className='answeredPoll'>
                 <img src={users[question.author].avatarURL} width="60 px" alt="avatar" />
                 <span className='small-font'>
                     asked by {question.author}
@@ -55,7 +55,7 @@ function Poll(props) {
     }
     else {
         return (
-            <div class='unanswedPoll'>
+            <div className='unanswedPoll'>
                 <img src={users[question.author].avatarURL} width="60 px" alt="avatar" />
                 <span className='small-font'>
                     {question.author} asks
@@ -68,7 +68,7 @@ function Poll(props) {
                             value="optionOne"
                             name="option"
                         />
-                        <label for='optionOne'>
+                        <label htmlFor='optionOne'>
                             {question.optionOne.text}
                         </label>
                         <br />
@@ -77,7 +77,7 @@ function Poll(props) {
                             value="optionTwo"
                             name="option"
                         />
-                        <label for='optionTwo'>
+                        <label htmlFor='optionTwo'>
                             {question.optionTwo.text}
                         </label>
                         <br />

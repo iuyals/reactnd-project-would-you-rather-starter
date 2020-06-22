@@ -41,7 +41,6 @@ class StatusBar extends React.Component {
         return (
             <span>
                 hi {this.props.user.name}
-                <image src={this.props.user.avatarUrl} />
             </span>
         )
     }

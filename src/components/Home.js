@@ -42,7 +42,7 @@ class Questions extends React.Component {
         return (
             <ol className='questions' style={this.props.style}>
                 {this.props.questions.map(q => {
-                    return (<li><Question question={q} /> </li>)
+                    return (<li key={q.id}><Question question={q} /> </li>)
                 })}
             </ol>
         )
